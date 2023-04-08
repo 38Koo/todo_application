@@ -2,8 +2,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
-import { GetServerSideProps, NextPage } from 'next';
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+import { GetServerSideProps } from 'next';
+import { usePostQuery } from '@/generated/types';
 
 type Props = {
   title: string;
@@ -11,12 +11,10 @@ type Props = {
 
 const inter = Inter({ subsets: ['latin'] });
 
-const client = new ApolloClient({
-  uri: 'http://localhost:8000/graphql',
-  cache: new InMemoryCache()
-});
+export default function Home() {
+  const { data } = usePostQuery();
+  console.log(data);
 
-export const Home: NextPage<Props> = (props) => {
   return (
     <>
       <Head>
@@ -26,7 +24,6 @@ export const Home: NextPage<Props> = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1 className={styles.title}>{props.title}</h1>
         <div className={styles.description}>
           <p>
             Get started by editing&nbsp;
@@ -58,6 +55,15 @@ export const Home: NextPage<Props> = (props) => {
           </div>
         </div>
 
+        <div>
+          <p>Test</p>
+          <ul>
+            <li>{data?.posts[0].id}</li>
+            <li>{data?.posts[0].title}</li>
+            <li>{data?.posts[1].id}</li>
+            <li>{data?.posts[1].title}</li>
+          </ul>
+        </div>
         <div className={styles.grid}>
           <a
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -110,7 +116,7 @@ export const Home: NextPage<Props> = (props) => {
       </main>
     </>
   );
-};
+}
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   return {
