@@ -13,26 +13,30 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-};
-
-export type PostModel = {
-  id: Scalars['String'];
-  title: Scalars['String'];
+  DateTime: any;
 };
 
 export type Query = {
-  posts?: Maybe<Array<PostModel>>;
+  task?: Maybe<Array<TaskModel>>;
 };
 
-export type PostQueryVariables = Exact<{ [key: string]: never; }>;
+export type TaskModel = {
+  date: Scalars['DateTime'];
+  id: Scalars['Float'];
+  memo: Scalars['String'];
+  statusId: Scalars['Float'];
+  title: Scalars['String'];
+};
+
+export type GetAllTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostQuery = { posts?: Array<{ id: string, title: string }> | null };
+export type GetAllTasksQuery = { task?: Array<{ id: number, title: string }> | null };
 
 
-export const PostDocument = gql`
-    query post {
-  posts {
+export const GetAllTasksDocument = gql`
+    query getAllTasks {
+  task {
     id
     title
   }
@@ -40,28 +44,28 @@ export const PostDocument = gql`
     `;
 
 /**
- * __usePostQuery__
+ * __useGetAllTasksQuery__
  *
- * To run a query within a React component, call `usePostQuery` and pass it any options that fit your needs.
- * When your component renders, `usePostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetAllTasksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllTasksQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = usePostQuery({
+ * const { data, loading, error } = useGetAllTasksQuery({
  *   variables: {
  *   },
  * });
  */
-export function usePostQuery(baseOptions?: Apollo.QueryHookOptions<PostQuery, PostQueryVariables>) {
+export function useGetAllTasksQuery(baseOptions?: Apollo.QueryHookOptions<GetAllTasksQuery, GetAllTasksQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<PostQuery, PostQueryVariables>(PostDocument, options);
+        return Apollo.useQuery<GetAllTasksQuery, GetAllTasksQueryVariables>(GetAllTasksDocument, options);
       }
-export function usePostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostQuery, PostQueryVariables>) {
+export function useGetAllTasksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllTasksQuery, GetAllTasksQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<PostQuery, PostQueryVariables>(PostDocument, options);
+          return Apollo.useLazyQuery<GetAllTasksQuery, GetAllTasksQueryVariables>(GetAllTasksDocument, options);
         }
-export type PostQueryHookResult = ReturnType<typeof usePostQuery>;
-export type PostLazyQueryHookResult = ReturnType<typeof usePostLazyQuery>;
-export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>;
+export type GetAllTasksQueryHookResult = ReturnType<typeof useGetAllTasksQuery>;
+export type GetAllTasksLazyQueryHookResult = ReturnType<typeof useGetAllTasksLazyQuery>;
+export type GetAllTasksQueryResult = Apollo.QueryResult<GetAllTasksQuery, GetAllTasksQueryVariables>;

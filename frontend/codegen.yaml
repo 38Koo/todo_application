@@ -12,6 +12,7 @@ generates:
       skipTypename: true
       scalars:
         Date: string
+      pages: "src/pages/**/*.tsx"
     hooks:
       afterOneFileWrite:
         - yarn lint --fix
