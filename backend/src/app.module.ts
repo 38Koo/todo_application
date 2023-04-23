@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { PostsModule } from './components/posts/posts.module';
+import { TasksModule } from './components/tasks/tasks.module';
 import * as path from 'path';
 
 @Module({
@@ -9,7 +9,7 @@ import * as path from 'path';
       autoSchemaFile: path.join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
     }),
-    PostsModule,
+    TasksModule,
   ],
 })
 export class AppModule {}
