@@ -8,9 +8,10 @@ const client = new ApolloClient({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  console.log(pageProps);
   return (
     <ApolloProvider client={client}>
-      <Layout>
+      <Layout subTitle={pageProps.subTitle}>
         <Component {...pageProps} />
       </Layout>
     </ApolloProvider>
