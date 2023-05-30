@@ -1,13 +1,16 @@
 import { VStack } from '@chakra-ui/react';
+import { useForm } from 'react-hook-form';
 
 import { LabelInput } from '@/components/Layout/base/labelInput';
 
-const login = () => {
+const Login = () => {
+  const {register} = useForm();
+
   return (
     <>
       <VStack>
-        <LabelInput>ID</LabelInput>
-        <LabelInput>password</LabelInput>
+        <LabelInput name='id' register={register}>ID</LabelInput>
+        <LabelInput name='password' register={register}>password</LabelInput>
       </VStack>
     </>
   );
@@ -21,4 +24,4 @@ export async function getStaticProps() {
   };
 }
 
-export default login;
+export default Login;

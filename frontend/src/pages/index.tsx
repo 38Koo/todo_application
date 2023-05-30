@@ -1,6 +1,7 @@
-import { Inter } from 'next/font/google';
 import { GetServerSideProps } from 'next';
-import { useGetAllTasksQuery } from '@/generated/types';
+import { Inter } from 'next/font/google';
+
+import { useGetStatusListQuery } from '@/generated/types';
 
 type Props = {
   title: string;
@@ -9,7 +10,7 @@ type Props = {
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  const { data } = useGetAllTasksQuery();
+  const { data } = useGetStatusListQuery();
   console.log(data);
 
   return (
@@ -18,10 +19,14 @@ export default function Home() {
         <div>
           <p>Test</p>
           <ul>
-            <li>{data?.task[0].id}</li>
-            <li>{data?.task[0].title}</li>
-            <li>{data?.task[1].id}</li>
-            <li>{data?.task[1].title}</li>
+            {data?.status && (
+              <>
+                <li>{data?.status[0]?.name}</li>
+                <li>{data?.status[1].name}</li>
+                <li>{data?.status[2].name}</li>
+                <li>{data?.status[3].name}</li>
+              </>
+            )}
           </ul>
         </div>
       </main>

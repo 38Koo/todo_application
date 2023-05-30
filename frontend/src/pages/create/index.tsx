@@ -16,10 +16,10 @@ const Create = () => {
       <VStack spacing={20} direction="row" alignItems="center" justifyContent="center">
         <FormControl>
           <Stack spacing={20}>
-            <LabelInput register={register}>Title</LabelInput>
-            <LabelTextarea register={register}>Memo</LabelTextarea>
-            <LabelSelect register={register}>Status</LabelSelect>
-            <LabelDate register={register}>Date</LabelDate>
+            <LabelInput name='title' register={register}>Title</LabelInput>
+            <LabelTextarea name='memo' register={register}>Memo</LabelTextarea>
+            <LabelSelect name='status' register={register}>Status</LabelSelect>
+            <LabelDate name='date' register={register}>Date</LabelDate>
           </Stack>
         </FormControl>
         <Button type="submit" width="50px">
