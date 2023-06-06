@@ -13,7 +13,7 @@ export const LabelTextarea = ({ children, register, placeHolder = '', name }: Pr
     <FormControl>
       <HStack spacing={100}>
         <FormLabel width="100px">{children}</FormLabel>
-        <Textarea height="100px" overflowY={'auto'} placeholder={placeHolder} {...register(name)}></Textarea>
+        <Textarea height="100px" overflowY={'auto'} placeholder={placeHolder} {...register(name)} />
       </HStack>
     </FormControl>
   );

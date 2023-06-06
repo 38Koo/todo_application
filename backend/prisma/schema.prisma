@@ -15,6 +15,8 @@ model Task {
   title     String
   status    Status?  @relation(fields: [statusId], references: [id])
   statusId  Int?
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
   date      DateTime
   memo      String
   createdAt DateTime @default(now())
@@ -27,4 +29,13 @@ model Status {
   tasks     Task[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model User {
+  id        Int      @default(autoincrement()) @id
+  loginId   String
+  tasks     Task[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
