@@ -1,11 +1,8 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 
-@ObjectType()
-export class TaskModel {
-  @Field((type) => Number)
-  id: number;
-
-  @Field((type) => String)
+@InputType()
+export class createTaskInput {
+  @Field()
   title: string;
 
   @Field({ nullable: true })

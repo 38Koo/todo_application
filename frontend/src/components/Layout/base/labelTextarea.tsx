@@ -1,11 +1,13 @@
 import { FormControl, FormLabel, HStack, Textarea } from '@chakra-ui/react';
-import { FieldValues, UseFormRegister } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
+
+import { CreateTaskInput } from '@/generated/types';
 
 type Props = {
   children: React.ReactNode;
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<CreateTaskInput>;
   placeHolder?: string;
-  name: string
+  name: keyof CreateTaskInput
 };
 
 export const LabelTextarea = ({ children, register, placeHolder = '', name }: Props) => {
@@ -13,7 +15,7 @@ export const LabelTextarea = ({ children, register, placeHolder = '', name }: Pr
     <FormControl>
       <HStack spacing={100}>
         <FormLabel width="100px">{children}</FormLabel>
-        <Textarea height="100px" overflowY={'auto'} placeholder={placeHolder} {...register(name)}></Textarea>
+        <Textarea height="100px" overflowY={'auto'} placeholder={placeHolder} {...register(name)} />
       </HStack>
     </FormControl>
   );

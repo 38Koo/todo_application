@@ -1,7 +1,7 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { TaskModel } from './models/task.model';
 import { TaskService } from './tasks.service';
-import { NotFoundException } from '@nestjs/common';
+import { createTaskInput } from './dto/create_task.input';
 
 @Resolver((of) => TaskModel)
 export class TaskResolver {
@@ -10,5 +10,12 @@ export class TaskResolver {
   @Query(() => [TaskModel], { name: 'task', nullable: true })
   async Task(): Promise<TaskModel[]> {
     return this.TaskService.findAll();
+  }
+
+  @Mutation(() => TaskModel)
+  async createTask(
+    @Args('createTaskInput') createTaskInput: createTaskInput,
+  ): Promise<TaskModel> {
+    return this.TaskService.createTask(createTaskInput);
   }
 }

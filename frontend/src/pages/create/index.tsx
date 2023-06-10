@@ -5,10 +5,19 @@ import { LabelDate } from '@/components/Layout/base/labelDate';
 import { LabelInput } from '@/components/Layout/base/labelInput';
 import { LabelSelect } from '@/components/Layout/base/labelSelect';
 import { LabelTextarea } from '@/components/Layout/base/labelTextarea';
+import { CreateTaskInput, useCreateTaskMutation } from '@/generated/types';
 
 const Create = () => {
-  const { register, handleSubmit, watch } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  const { register, handleSubmit, watch } = useForm<CreateTaskInput>();
+  const [createTaskMutation, { data, loading, error }] = useCreateTaskMutation({
+    onError: (error) => console.log(error),
+  });
+  const onSubmit = (data: CreateTaskInput) => {
+    console.log(data);
+    data.statusId = Number(data.statusId)
+    createTaskMutation({ variables: { input: data } });
+  }
+
 
   console.log(watch('title'));
   return (
@@ -18,7 +27,7 @@ const Create = () => {
           <Stack spacing={20}>
             <LabelInput name='title' register={register}>Title</LabelInput>
             <LabelTextarea name='memo' register={register}>Memo</LabelTextarea>
-            <LabelSelect name='status' register={register}>Status</LabelSelect>
+            <LabelSelect name='statusId' register={register}>Status</LabelSelect>
             <LabelDate name='date' register={register}>Date</LabelDate>
           </Stack>
         </FormControl>

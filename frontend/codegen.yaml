@@ -13,6 +13,3 @@ generates:
       scalars:
         Date: string
       pages: "src/pages/**/*.tsx"
-    hooks:
-      afterOneFileWrite:
-        - yarn lint --fix

@@ -4,3 +4,13 @@ query getAllTasks {
     title
   }
 }
+
+mutation createTask($input: createTaskInput!) {
+  createTask(createTaskInput: $input) {
+      title
+      memo
+      date
+      statusId
+      userId
+  }
+}
