@@ -1,12 +1,12 @@
 import { Box, FormControl, FormLabel, HStack, SelectField } from '@chakra-ui/react';
-import { FieldValues, UseFormRegister } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
 
-import { useGetStatusListQuery } from '@/generated/types';
+import { CreateTaskInput, useGetStatusListQuery } from '@/generated/types';
 
 type Props = {
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<CreateTaskInput>;
   children: React.ReactNode;
-  name: string
+  name: keyof CreateTaskInput
 };
 
 export const LabelSelect = ({ children, register, name }: Props) => {
@@ -20,7 +20,7 @@ export const LabelSelect = ({ children, register, name }: Props) => {
           <SelectField {...register(name)}>
             <option value=""></option>
             {!!data?.status && data.status.map((item) => {
-              return <option value={`${item.name}`} key={`${item.id}`}>{item.name}</option>
+              return <option value={`${item.id}`} key={`${item.id}`}>{item.name}</option>
             })}
           </SelectField>
         </Box>
