@@ -9,4 +9,12 @@ export class StatusService {
   async findAll(): Promise<StatusModel[]> {
     return this.prisma.status.findMany();
   }
+
+  async findOneById(statusId: number): Promise<StatusModel> {
+    return this.prisma.status.findUnique({
+      where: {
+        id: statusId,
+      },
+    });
+  }
 }

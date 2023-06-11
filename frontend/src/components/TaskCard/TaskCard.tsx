@@ -2,7 +2,7 @@ import { Box, Card, CardBody, CardHeader, HStack, Heading, Stack, StackDivider }
 
 export const TaskCard = () => {
   return (
-    <Card bg="gray.100" p={16} borderRadius="md" border="solid" borderColor="gray.200" width={600} bgColor="khaki">
+    <Card bg="gray.100" p={16} borderRadius="md" border="solid" borderColor="gray.200" width={300} bgColor="khaki">
       <CardHeader>
         <Heading size="md">b</Heading>
       </CardHeader>

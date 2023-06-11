@@ -31,15 +31,16 @@ export type Query = {
 };
 
 export type StatusModel = {
-  id: Scalars['Float'];
+  id: Scalars['Int'];
   name: Scalars['String'];
 };
 
 export type TaskModel = {
   date?: Maybe<Scalars['DateTime']>;
-  id: Scalars['Float'];
+  id: Scalars['Int'];
   memo?: Maybe<Scalars['String']>;
-  statusId?: Maybe<Scalars['Float']>;
+  status?: Maybe<StatusModel>;
+  statusId?: Maybe<Scalars['Int']>;
   title: Scalars['String'];
   userId?: Maybe<Scalars['Float']>;
 };
@@ -60,14 +61,14 @@ export type GetStatusListQuery = { status?: Array<{ id: number, name: string }> 
 export type GetAllTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllTasksQuery = { task?: Array<{ id: number, title: string }> | null };
+export type GetAllTasksQuery = { task?: Array<{ id: number, title: string, statusId?: number | null, date?: any | null, memo?: string | null, status?: { id: number, name: string } | null }> | null };
 
 export type CreateTaskMutationVariables = Exact<{
   input: CreateTaskInput;
 }>;
 
 
-export type CreateTaskMutation = { createTask: { title: string, memo?: string | null, date?: any | null, statusId?: number | null, userId?: number | null } };
+export type CreateTaskMutation = { createTask: { title: string, memo?: string | null, date?: any | null, userId?: number | null, status?: { id: number, name: string } | null } };
 
 
 export const GetStatusListDocument = gql`
@@ -110,6 +111,13 @@ export const GetAllTasksDocument = gql`
   task {
     id
     title
+    status {
+      id
+      name
+    }
+    statusId
+    date
+    memo
   }
 }
     `;
@@ -146,7 +154,10 @@ export const CreateTaskDocument = gql`
     title
     memo
     date
-    statusId
+    status {
+      id
+      name
+    }
     userId
   }
 }
