@@ -4,16 +4,16 @@ import { StatusModel } from 'src/components/Status/models/status.model';
 
 @ObjectType()
 export class TaskModel {
-  @Field((type) => Int)
+  @Field(() => Int)
   id: number;
 
   @Field()
   title: string;
 
-  @Field((type) => StatusModel, { nullable: true })
+  @Field(() => StatusModel, { nullable: true })
   status?: Status;
 
-  @Field((type) => Int, { nullable: true })
+  @Field(() => Int, { nullable: true })
   statusId?: number;
 
   @Field({ nullable: true })
