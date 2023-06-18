@@ -1,15 +1,18 @@
 import { Stack } from '@chakra-ui/react';
 
 import { TaskCard } from '@/components/TaskCard/TaskCard';
+import { useGetAllTasksQuery } from '@/generated/types';
+
 
 const List = () => {
-  const cardList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const { data } = useGetAllTasksQuery();
+
   return (
     <>
-      {cardList.length !== 0 && (
+      {!!data?.task && data.task.length !== 0 && (
         <Stack direction="row" spacing="4" flexWrap="wrap">
-          {cardList.map((item) => (
-            <TaskCard key={item} />
+          {data.task.map((item) => (
+            <TaskCard key={item.id} task={item} />
           ))}
         </Stack>
       )}
