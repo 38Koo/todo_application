@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { CustomDateScalar } from 'src/graphql/customScalar/date';
 
 @InputType()
 export class createTaskInput {
@@ -8,8 +9,8 @@ export class createTaskInput {
   @Field({ nullable: true })
   statusId?: number;
 
-  @Field({ nullable: true })
-  date?: Date;
+  @Field(() => CustomDateScalar, { nullable: true })
+  date?: string;
 
   @Field({ nullable: true })
   memo?: string;
