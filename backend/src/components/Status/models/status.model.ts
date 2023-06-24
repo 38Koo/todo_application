@@ -1,10 +1,10 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class StatusModel {
-  @Field((type) => Number)
+  @Field(() => Int)
   id: number;
 
-  @Field((type) => String)
+  @Field()
   name: string;
 }

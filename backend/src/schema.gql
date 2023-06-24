@@ -17,15 +17,16 @@ type Query {
 }
 
 type StatusModel {
-  id: Float!
+  id: Int!
   name: String!
 }
 
 type TaskModel {
   date: DateTime
-  id: Float!
+  id: Int!
   memo: String
-  statusId: Float
+  status: StatusModel
+  statusId: Int
   title: String!
   userId: Float
 }

@@ -2,6 +2,13 @@ query getAllTasks {
   task {
     id
     title
+    status {
+      id
+      name
+    }
+    statusId
+    date
+    memo
   }
 }
 
@@ -10,7 +17,10 @@ mutation createTask($input: createTaskInput!) {
       title
       memo
       date
-      statusId
+      status {
+        id
+        name
+      }
       userId
   }
 }

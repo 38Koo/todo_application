@@ -1968,10 +1968,10 @@
   dependencies:
     glob "7.1.7"
 
-"@next/swc-win32-x64-msvc@13.2.4":
+"@next/swc-darwin-arm64@13.2.4":
   version "13.2.4"
-  resolved "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-13.2.4.tgz"
-  integrity sha512-0MffFmyv7tBLlji01qc0IaPP/LVExzvj7/R5x1Jph1bTAIj4Vu81yFQWHHQAP6r4ff9Ukj1mBK6MDNVXm7Tcvw==
+  resolved "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-13.2.4.tgz"
+  integrity sha512-S6vBl+OrInP47TM3LlYx65betocKUUlTZDDKzTiRDbsRESeyIkBtZ6Qi5uT2zQs4imqllJznVjFd1bXLx3Aa6A==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -5426,6 +5426,11 @@ ts-log@^2.2.3:
   version "2.2.5"
   resolved "https://registry.npmjs.org/ts-log/-/ts-log-2.2.5.tgz"
   integrity sha512-PGcnJoTBnVGy6yYNFxWVNkdcAuAMstvutN9MgDJIV6L0oG8fB+ZNNy1T+wJzah8RPGor1mZuPQkVfXNDpy9eHA==
+
+ts-pattern@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.npmjs.org/ts-pattern/-/ts-pattern-5.0.1.tgz"
+  integrity sha512-ZyNm28Lsg34Co5DS3e9DVyjlX2Y+2exkI4jqTKyU+9/OL6Y2fKOOuL8i+7no71o74C6mVS+UFoP3ekM3iCT1HQ==
 
 tsconfig-paths@^3.14.1:
   version "3.14.2"

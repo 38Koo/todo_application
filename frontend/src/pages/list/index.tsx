@@ -1,17 +1,27 @@
-import { Stack } from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
 
 import { TaskCard } from '@/components/TaskCard/TaskCard';
+import { useGetAllTasksQuery } from '@/generated/types';
 
 const List = () => {
-  const cardList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const { data } = useGetAllTasksQuery();
+
   return (
     <>
-      {cardList.length !== 0 && (
-        <Stack direction="row" spacing="4" flexWrap="wrap">
-          {cardList.map((item) => (
-            <TaskCard key={item} />
+      {!!data?.task && data.task.length !== 0 && (
+        <SimpleGrid columns={4} spacing="10">
+          {data.task.map((item) => (
+            <TaskCard
+              key={item.id}
+              id={item.id}
+              statusId={item.statusId}
+              title={item.title}
+              status={item.status}
+              date={item.date}
+              memo={item.memo}
+            />
           ))}
-        </Stack>
+        </SimpleGrid>
       )}
     </>
   );

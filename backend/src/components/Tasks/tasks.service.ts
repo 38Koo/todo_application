@@ -8,7 +8,11 @@ export class TaskService {
   constructor(private prisma: PrismaService) {}
 
   async findAll(): Promise<TaskModel[]> {
-    return this.prisma.task.findMany();
+    return this.prisma.task.findMany({
+      include: {
+        status: true,
+      },
+    });
   }
 
   async createTask(createTaskInput: createTaskInput): Promise<TaskModel> {
