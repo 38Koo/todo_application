@@ -8,27 +8,38 @@ import { LabelTextarea } from '@/components/Layout/base/labelTextarea';
 import { CreateTaskInput, useCreateTaskMutation } from '@/generated/types';
 
 const Create = () => {
-  const { register, handleSubmit, watch } = useForm<CreateTaskInput>();
+  const { register, handleSubmit } = useForm<CreateTaskInput>();
   const [createTaskMutation, { data, loading, error }] = useCreateTaskMutation({
-    onError: (error) => console.log(error),
+    onError: (error) => console.log(error)
   });
   const onSubmit = (data: CreateTaskInput) => {
-    console.log(data);
-    data.statusId = Number(data.statusId)
+    data.statusId = Number(data.statusId);
+    data.date = data.date.replace(/-/g, '/');
     createTaskMutation({ variables: { input: data } });
-  }
+  };
 
-
-  console.log(watch('title'));
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <VStack spacing={20} direction="row" alignItems="center" justifyContent="center">
+      <VStack
+        spacing={20}
+        direction="row"
+        alignItems="center"
+        justifyContent="center"
+      >
         <FormControl>
           <Stack spacing={20}>
-            <LabelInput name='title' register={register}>Title</LabelInput>
-            <LabelTextarea name='memo' register={register}>Memo</LabelTextarea>
-            <LabelSelect name='statusId' register={register}>Status</LabelSelect>
-            <LabelDate name='date' register={register}>Date</LabelDate>
+            <LabelInput name="title" register={register}>
+              Title
+            </LabelInput>
+            <LabelTextarea name="memo" register={register}>
+              Memo
+            </LabelTextarea>
+            <LabelSelect name="statusId" register={register}>
+              Status
+            </LabelSelect>
+            <LabelDate name="date" register={register}>
+              Date
+            </LabelDate>
           </Stack>
         </FormControl>
         <Button type="submit" width="50px">
