@@ -9,33 +9,46 @@ import {
   HStack,
   Text
 } from '@chakra-ui/react';
+import { match } from 'ts-pattern';
 
-type Props = {
-  task: {
-    id: number;
-    title: string;
-    statusId?: number | null | undefined;
-    date?: any;
-    memo?: string | null | undefined;
-    status?: { id: number; name: string } | null | undefined;
+import { TaskModel } from '@/generated/types';
+
+type Props = TaskModel;
+
+const StatusIdToNumber = {
+  todo: 1,
+  pending: 2,
+  done: 3,
+  doing: 4
+} as const;
+
+export const TaskCard = ({ statusId, title, status, date, memo }: Props) => {
+  const statusIdToBgColorName = (statusId: TaskModel['statusId']) => {
+    return match(statusId)
+      .with(null, undefined, () => 'white')
+      .with(StatusIdToNumber.todo, () => 'khaki')
+      .with(StatusIdToNumber.pending, () => 'palegreen')
+      .with(StatusIdToNumber.done, () => 'pink')
+      .with(StatusIdToNumber.doing, () => 'lightcyan')
+      .otherwise(() => {
+        console.error('statusIdが不正です。');
+        return 'white';
+      });
   };
-};
 
-export const TaskCard = ({ task }: Props) => {
   return (
     <Card
       p={16}
-      // borderRadius="25% 10%"
       borderRadius="10%"
       border="solid"
       borderColor="gray.200"
       width={300}
-      bgColor="khaki"
+      bgColor={statusIdToBgColorName(statusId)}
       height={400}
     >
       <CardHeader>
         <Heading size="md" margin="0 5%">
-          {task.title}
+          {title}
         </Heading>
       </CardHeader>
       <StackDivider border="solid" borderColor="gray.200" marginY="8" />
@@ -46,20 +59,20 @@ export const TaskCard = ({ task }: Props) => {
               <Heading as="h3" size="xs" minW="30%" margin="0 5%">
                 Status
               </Heading>
-              <Text fontSize="2xl">{task.status?.name}</Text>
+              <Text fontSize="2xl">{status?.name}</Text>
             </HStack>
             <HStack width="100%">
               <Heading as="h3" size="xs" minW="30%" margin="0 5%">
                 Date
               </Heading>
-              <Text>{task.date}</Text>
+              <Text>{date}</Text>
             </HStack>
           </VStack>
           <Stack spacing="2" paddingX="5%">
             <Heading as="h3" size="xs" minW="30%" marginY="0">
               Memo
             </Heading>
-            <Text>{task.memo}</Text>
+            <Text>{memo}</Text>
           </Stack>
         </Stack>
       </CardBody>

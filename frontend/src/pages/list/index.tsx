@@ -1,8 +1,7 @@
-import { Stack } from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
 
 import { TaskCard } from '@/components/TaskCard/TaskCard';
 import { useGetAllTasksQuery } from '@/generated/types';
-
 
 const List = () => {
   const { data } = useGetAllTasksQuery();
@@ -10,11 +9,19 @@ const List = () => {
   return (
     <>
       {!!data?.task && data.task.length !== 0 && (
-        <Stack direction="row" spacing="4" flexWrap="wrap">
+        <SimpleGrid columns={4} spacing="10">
           {data.task.map((item) => (
-            <TaskCard key={item.id} task={item} />
+            <TaskCard
+              key={item.id}
+              id={item.id}
+              statusId={item.statusId}
+              title={item.title}
+              status={item.status}
+              date={item.date}
+              memo={item.memo}
+            />
           ))}
-        </Stack>
+        </SimpleGrid>
       )}
     </>
   );
