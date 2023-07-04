@@ -13,7 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  DateTime: any;
+  date: any;
 };
 
 export type Mutation = {
@@ -36,7 +36,7 @@ export type StatusModel = {
 };
 
 export type TaskModel = {
-  date?: Maybe<Scalars['DateTime']>;
+  date?: Maybe<Scalars['date']>;
   id: Scalars['Int'];
   memo?: Maybe<Scalars['String']>;
   status?: Maybe<StatusModel>;
@@ -46,7 +46,7 @@ export type TaskModel = {
 };
 
 export type CreateTaskInput = {
-  date?: InputMaybe<Scalars['DateTime']>;
+  date?: InputMaybe<Scalars['date']>;
   memo?: InputMaybe<Scalars['String']>;
   statusId?: InputMaybe<Scalars['Float']>;
   title: Scalars['String'];

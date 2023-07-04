@@ -1,16 +1,19 @@
 import { FormControl, FormLabel, HStack, Input } from '@chakra-ui/react';
-import { UseFormRegister } from 'react-hook-form';
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-import { CreateTaskInput } from '@/generated/types';
-
-type Props = {
-  register: UseFormRegister<CreateTaskInput>;
+type Props<T extends FieldValues> = {
+  register: UseFormRegister<T>;
   children: React.ReactNode;
   placeHolder?: string;
-  name: keyof CreateTaskInput
+  name: Path<T>;
 };
 
-export const LabelInput = ({ children, placeHolder = '', register, name }: Props) => {
+export const LabelInput = <T extends FieldValues>({
+  children,
+  placeHolder = '',
+  register,
+  name
+}: Props<T>) => {
   return (
     <FormControl>
       <HStack spacing={100}>

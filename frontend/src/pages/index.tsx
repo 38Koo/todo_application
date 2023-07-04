@@ -1,5 +1,7 @@
+import { Box, Button, Heading } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { Inter } from 'next/font/google';
+import { useRouter } from 'next/router';
 
 import { useGetStatusListQuery } from '@/generated/types';
 
@@ -12,25 +14,24 @@ const inter = Inter({ subsets: ['latin'] });
 export default function Home() {
   const { data } = useGetStatusListQuery();
   console.log(data);
+  const router = useRouter();
+
+  const onSubmit = (toLogin: boolean) => {
+    if (toLogin === true) {
+      router.push('list');
+      return;
+    }
+    router.push('create');
+  };
 
   return (
-    <>
-      <main>
-        <div>
-          <p>Test</p>
-          <ul>
-            {data?.status && (
-              <>
-                <li>{data?.status[0]?.name}</li>
-                <li>{data?.status[1].name}</li>
-                <li>{data?.status[2].name}</li>
-                <li>{data?.status[3].name}</li>
-              </>
-            )}
-          </ul>
-        </div>
-      </main>
-    </>
+    <Box>
+      <Heading as="h2">Let&apos;s manage your Task!</Heading>
+      <Box alignContent="space-around">
+        <Button onClick={() => onSubmit(true)}>Sign in</Button>
+        <Button onClick={() => onSubmit(false)}>Log in</Button>
+      </Box>
+    </Box>
   );
 }
 
