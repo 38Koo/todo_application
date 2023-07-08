@@ -9,10 +9,11 @@ import { CreateTaskInput, useCreateTaskMutation } from '@/generated/types';
 
 const Create = () => {
   const { register, handleSubmit } = useForm<CreateTaskInput>();
-  const [createTaskMutation, { data, loading, error }] = useCreateTaskMutation({
+  const [createTaskMutation] = useCreateTaskMutation({
     onError: (error) => console.log(error)
   });
   const onSubmit = (data: CreateTaskInput) => {
+    console.log(data);
     data.statusId = Number(data.statusId);
     data.date = data.date.replace(/-/g, '/');
     createTaskMutation({ variables: { input: data } });

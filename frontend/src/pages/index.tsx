@@ -18,18 +18,18 @@ export default function Home() {
 
   const onSubmit = (toLogin: boolean) => {
     if (toLogin === true) {
-      router.push('list');
+      router.push('login');
       return;
     }
-    router.push('create');
+    router.push('signin');
   };
 
   return (
     <Box>
       <Heading as="h2">Let&apos;s manage your Task!</Heading>
       <Box alignContent="space-around">
-        <Button onClick={() => onSubmit(true)}>Sign in</Button>
-        <Button onClick={() => onSubmit(false)}>Log in</Button>
+        <Button onClick={() => onSubmit(false)}>Sign in</Button>
+        <Button onClick={() => onSubmit(true)}>Log in</Button>
       </Box>
     </Box>
   );
