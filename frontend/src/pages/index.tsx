@@ -1,5 +1,4 @@
 import { Box, Button, Heading } from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
 import { Inter } from 'next/font/google';
 import { useRouter } from 'next/router';
 
@@ -35,10 +34,10 @@ export default function Home() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export async function getStaticProps() {
   return {
     props: {
-      title: 'Hello, GraphQL!'
+      subTitle: 'Top'
     }
   };
-};
+}

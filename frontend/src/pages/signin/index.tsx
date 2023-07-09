@@ -1,11 +1,9 @@
 import { Button, Stack, VStack } from '@chakra-ui/react';
-import { initializeApp } from 'firebase/app';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
 import { LabelInput } from '@/components/Layout/base/labelInput';
-import { firebaseConfig } from '@/lib/FirebaseConfig';
 
 export type AuthProps = {
   email: string;
@@ -18,12 +16,11 @@ const Signin = () => {
 
   // ユーザーが登録ボタンを押したときにdoRegister関数が実行される
   const onSubmit = (data: AuthProps) => {
-    initializeApp(firebaseConfig);
     const auth = getAuth();
 
     // Firebaseで用意されているユーザー登録の関数
     createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then((userCredential) => {
+      .then(() => {
         // ユーザー登録すると自動的にログインされてuserCredential.userでユーザーの情報を取得できる
         // const user = userCredential.user;
         // ユーザー登録ができたかどうかをわかりやすくするためのアラート
