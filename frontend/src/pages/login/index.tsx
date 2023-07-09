@@ -19,7 +19,6 @@ const Login = () => {
 
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then((UserCredential) => {
-        console.log(UserCredential.user);
         alert('ログインしました！');
         router.push('/list');
       })

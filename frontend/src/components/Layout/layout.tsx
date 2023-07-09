@@ -14,7 +14,6 @@ type Props = {
 export const Layout = ({ children, subTitle }: Props) => {
   const user = useAuth();
 
-  console.log(user);
   return (
     <>
       <Head>
@@ -30,7 +29,7 @@ export const Layout = ({ children, subTitle }: Props) => {
             {subTitle}
           </Title>
         </Stack>
-        {!!user && <Logout user={user} />}
+        {!!user && <Logout />}
       </HStack>
       <Box display={'flex'} justifyContent={'center'} mt={'40px'}>
         {children}

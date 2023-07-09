@@ -11,7 +11,6 @@ const client = new ApolloClient({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-  console.log(pageProps);
   return (
     <ApolloProvider client={client}>
       <AuthProvider>

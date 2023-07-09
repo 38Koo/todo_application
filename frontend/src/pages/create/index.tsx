@@ -10,7 +10,7 @@ import { CreateTaskInput, useCreateTaskMutation } from '@/generated/types';
 const Create = () => {
   const { register, handleSubmit } = useForm<CreateTaskInput>();
   const [createTaskMutation] = useCreateTaskMutation({
-    onError: (error) => console.log(error)
+    onError: (error) => console.error(error)
   });
   const onSubmit = (data: CreateTaskInput) => {
     console.log(data);

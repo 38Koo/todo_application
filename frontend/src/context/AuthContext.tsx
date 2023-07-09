@@ -26,17 +26,13 @@ export const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      }
+      setUser(user ? user : null);
       setLoading(false);
     });
     return unSubscribe;
   }, [auth]);
 
   const value = user;
-
-  console.log(user);
 
   return (
     <AuthContext.Provider value={value}>

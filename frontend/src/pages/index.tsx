@@ -12,7 +12,6 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const { data } = useGetStatusListQuery();
-  console.log(data);
   const router = useRouter();
 
   const onSubmit = (toLogin: boolean) => {

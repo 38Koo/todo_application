@@ -6,7 +6,7 @@ type Props = {
   user: User;
 };
 
-export const Logout = ({ user }: Props) => {
+export const Logout = () => {
   const router = useRouter();
   const auth = getAuth();
 

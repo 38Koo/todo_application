@@ -29,7 +29,7 @@ const Signin = () => {
       })
       .catch((error) => {
         alert('エラーが発生しました。');
-        console.log(error);
+        console.error(error);
       });
   };
 
