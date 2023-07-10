@@ -4,6 +4,7 @@ import { TasksModule } from './components/tasks/tasks.module';
 import * as path from 'path';
 import { StatusModule } from './components/Status/status.module';
 import { CustomDateScalar } from './graphql/customScalar/date';
+import { UserModule } from './components/User/user.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { CustomDateScalar } from './graphql/customScalar/date';
     }),
     TasksModule,
     StatusModule,
+    UserModule,
   ],
 })
 export class AppModule {}

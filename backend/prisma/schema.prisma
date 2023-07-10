@@ -30,7 +30,9 @@ model Status {
 
 model User {
   id        Int       @id @default(autoincrement())
-  loginId   String
+  uuid      String    @default(uuid())
+  name      String
+  email     String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?

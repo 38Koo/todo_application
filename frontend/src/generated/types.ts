@@ -18,6 +18,7 @@ export type Scalars = {
 
 export type Mutation = {
   createTask: TaskModel;
+  createUser: UserModel;
 };
 
 
@@ -25,9 +26,19 @@ export type MutationCreateTaskArgs = {
   createTaskInput: CreateTaskInput;
 };
 
+
+export type MutationCreateUserArgs = {
+  createUserInput: CreateUserInput;
+};
+
 export type Query = {
   status?: Maybe<Array<StatusModel>>;
   task?: Maybe<Array<TaskModel>>;
+};
+
+
+export type QueryTaskArgs = {
+  userId: Scalars['Float'];
 };
 
 export type StatusModel = {
@@ -42,7 +53,14 @@ export type TaskModel = {
   status?: Maybe<StatusModel>;
   statusId?: Maybe<Scalars['Int']>;
   title: Scalars['String'];
-  userId?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Int']>;
+};
+
+export type UserModel = {
+  email: Scalars['String'];
+  id: Scalars['Int'];
+  name: Scalars['String'];
+  uuid: Scalars['String'];
 };
 
 export type CreateTaskInput = {
@@ -53,12 +71,20 @@ export type CreateTaskInput = {
   userId?: InputMaybe<Scalars['Float']>;
 };
 
+export type CreateUserInput = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+  uuid: Scalars['String'];
+};
+
 export type GetStatusListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetStatusListQuery = { status?: Array<{ id: number, name: string }> | null };
 
-export type GetAllTasksQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAllTasksQueryVariables = Exact<{
+  userId: Scalars['Float'];
+}>;
 
 
 export type GetAllTasksQuery = { task?: Array<{ id: number, title: string, statusId?: number | null, date?: any | null, memo?: string | null, status?: { id: number, name: string } | null }> | null };
@@ -69,6 +95,13 @@ export type CreateTaskMutationVariables = Exact<{
 
 
 export type CreateTaskMutation = { createTask: { title: string, memo?: string | null, date?: any | null, userId?: number | null, status?: { id: number, name: string } | null } };
+
+export type CreateUserMutationVariables = Exact<{
+  input: CreateUserInput;
+}>;
+
+
+export type CreateUserMutation = { createUser: { uuid: string, name: string, email: string } };
 
 
 export const GetStatusListDocument = gql`
@@ -107,8 +140,8 @@ export type GetStatusListQueryHookResult = ReturnType<typeof useGetStatusListQue
 export type GetStatusListLazyQueryHookResult = ReturnType<typeof useGetStatusListLazyQuery>;
 export type GetStatusListQueryResult = Apollo.QueryResult<GetStatusListQuery, GetStatusListQueryVariables>;
 export const GetAllTasksDocument = gql`
-    query getAllTasks {
-  task {
+    query getAllTasks($userId: Float!) {
+  task(userId: $userId) {
     id
     title
     status {
@@ -134,10 +167,11 @@ export const GetAllTasksDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllTasksQuery({
  *   variables: {
+ *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useGetAllTasksQuery(baseOptions?: Apollo.QueryHookOptions<GetAllTasksQuery, GetAllTasksQueryVariables>) {
+export function useGetAllTasksQuery(baseOptions: Apollo.QueryHookOptions<GetAllTasksQuery, GetAllTasksQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetAllTasksQuery, GetAllTasksQueryVariables>(GetAllTasksDocument, options);
       }
@@ -188,3 +222,38 @@ export function useCreateTaskMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateTaskMutationHookResult = ReturnType<typeof useCreateTaskMutation>;
 export type CreateTaskMutationResult = Apollo.MutationResult<CreateTaskMutation>;
 export type CreateTaskMutationOptions = Apollo.BaseMutationOptions<CreateTaskMutation, CreateTaskMutationVariables>;
+export const CreateUserDocument = gql`
+    mutation createUser($input: createUserInput!) {
+  createUser(createUserInput: $input) {
+    uuid
+    name
+    email
+  }
+}
+    `;
+export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
+
+/**
+ * __useCreateUserMutation__
+ *
+ * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
+      }
+export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
+export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;

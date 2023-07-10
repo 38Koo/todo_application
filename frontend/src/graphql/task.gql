@@ -1,5 +1,5 @@
-query getAllTasks {
-  task {
+query getAllTasks($userId: Float!) {
+  task(userId: $userId) {
     id
     title
     status {
