@@ -4,11 +4,13 @@
 
 type Mutation {
   createTask(createTaskInput: createTaskInput!): TaskModel!
+  createUser(createUserInput: createUserInput!): UserModel!
 }
 
 type Query {
   status: [StatusModel!]
-  task: [TaskModel!]
+  task(userId: Float!): [TaskModel!]
+  user(email: String!): UserModel!
 }
 
 type StatusModel {
@@ -23,7 +25,14 @@ type TaskModel {
   status: StatusModel
   statusId: Int
   title: String!
-  userId: Float
+  userId: Int
+}
+
+type UserModel {
+  email: String!
+  id: Int!
+  name: String!
+  uuid: String!
 }
 
 input createTaskInput {
@@ -32,6 +41,12 @@ input createTaskInput {
   statusId: Float
   title: String!
   userId: Float
+}
+
+input createUserInput {
+  email: String!
+  name: String!
+  uuid: String!
 }
 
 """A simple UUID parser"""

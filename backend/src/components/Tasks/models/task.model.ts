@@ -23,6 +23,6 @@ export class TaskModel {
   @Field({ nullable: true })
   memo?: string;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   userId?: number;
 }

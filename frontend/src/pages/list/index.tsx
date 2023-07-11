@@ -1,16 +1,42 @@
 import { SimpleGrid } from '@chakra-ui/react';
 
 import { TaskCard } from '@/components/TaskCard/TaskCard';
-import { useGetAllTasksQuery } from '@/generated/types';
+import {
+  Exact,
+  GetUserQuery,
+  useGetAllTasksQuery,
+  useGetUserQuery
+} from '@/generated/types';
+import { useAuth } from '@/context/AuthContext';
+import { QueryHookOptions } from '@apollo/client';
+
+type a = QueryHookOptions<
+  GetUserQuery,
+  Exact<{
+    email: string;
+  }>
+>;
 
 const List = () => {
-  const { data } = useGetAllTasksQuery();
+  const auth = useAuth();
+
+  const { data } = useGetUserQuery({
+    variables: {
+      email: auth?.email!
+    }
+  });
+
+  const { data: list } = useGetAllTasksQuery({
+    variables: {
+      userId: data?.user.id!
+    }
+  });
 
   return (
     <>
-      {!!data?.task && data.task.length !== 0 && (
+      {!!list?.task && list.task.length !== 0 && (
         <SimpleGrid columns={4} spacing="10">
-          {data.task.map((item) => (
+          {list.task.map((item) => (
             <TaskCard
               key={item.id}
               id={item.id}

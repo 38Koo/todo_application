@@ -1,5 +1,6 @@
-import { GetServerSideProps } from 'next';
+import { Box, Button, Heading } from '@chakra-ui/react';
 import { Inter } from 'next/font/google';
+import { useRouter } from 'next/router';
 
 import { useGetStatusListQuery } from '@/generated/types';
 
@@ -11,33 +12,31 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const { data } = useGetStatusListQuery();
-  console.log(data);
+  const router = useRouter();
+
+  const onSubmit = (toLogin: boolean) => {
+    if (toLogin === true) {
+      router.push('login');
+      return;
+    }
+    router.push('signin');
+  };
 
   return (
-    <>
-      <main>
-        <div>
-          <p>Test</p>
-          <ul>
-            {data?.status && (
-              <>
-                <li>{data?.status[0]?.name}</li>
-                <li>{data?.status[1].name}</li>
-                <li>{data?.status[2].name}</li>
-                <li>{data?.status[3].name}</li>
-              </>
-            )}
-          </ul>
-        </div>
-      </main>
-    </>
+    <Box>
+      <Heading as="h2">Let&apos;s manage your Task!</Heading>
+      <Box alignContent="space-around">
+        <Button onClick={() => onSubmit(false)}>Sign in</Button>
+        <Button onClick={() => onSubmit(true)}>Log in</Button>
+      </Box>
+    </Box>
   );
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export async function getStaticProps() {
   return {
     props: {
-      title: 'Hello, GraphQL!'
+      subTitle: 'Top'
     }
   };
-};
+}

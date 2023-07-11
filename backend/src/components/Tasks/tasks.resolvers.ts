@@ -8,8 +8,8 @@ export class TaskResolver {
   constructor(private readonly TaskService: TaskService) {}
 
   @Query(() => [TaskModel], { name: 'task', nullable: true })
-  async task(): Promise<TaskModel[]> {
-    return this.TaskService.findAll();
+  async task(@Args('userId') userId: number): Promise<TaskModel[]> {
+    return this.TaskService.findAll(userId);
   }
 
   @Mutation(() => TaskModel)

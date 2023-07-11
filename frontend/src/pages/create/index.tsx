@@ -5,16 +5,32 @@ import { LabelDate } from '@/components/Layout/base/labelDate';
 import { LabelInput } from '@/components/Layout/base/labelInput';
 import { LabelSelect } from '@/components/Layout/base/labelSelect';
 import { LabelTextarea } from '@/components/Layout/base/labelTextarea';
-import { CreateTaskInput, useCreateTaskMutation } from '@/generated/types';
+import {
+  CreateTaskInput,
+  useCreateTaskMutation,
+  useGetUserQuery
+} from '@/generated/types';
+import { useAuth } from '@/context/AuthContext';
+import { use } from 'react';
 
 const Create = () => {
   const { register, handleSubmit } = useForm<CreateTaskInput>();
-  const [createTaskMutation, { data, loading, error }] = useCreateTaskMutation({
-    onError: (error) => console.log(error)
+  const [createTaskMutation] = useCreateTaskMutation({
+    onError: (error) => console.error(error)
   });
+  const auth = useAuth();
+
+  const { data: user } = useGetUserQuery({
+    variables: {
+      email: auth?.email!
+    }
+  });
+
   const onSubmit = (data: CreateTaskInput) => {
+    console.log(data);
     data.statusId = Number(data.statusId);
     data.date = data.date.replace(/-/g, '/');
+    data.userId = user?.user.id;
     createTaskMutation({ variables: { input: data } });
   };
 

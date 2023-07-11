@@ -7,10 +7,13 @@ import { createTaskInput } from './dto/create_task.input';
 export class TaskService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(): Promise<TaskModel[]> {
+  async findAll(userId): Promise<TaskModel[]> {
     return this.prisma.task.findMany({
       include: {
         status: true,
+      },
+      where: {
+        userId: userId,
       },
     });
   }
@@ -22,7 +25,7 @@ export class TaskService {
         date: createTaskInput.date || null,
         statusId: createTaskInput.statusId || null,
         memo: createTaskInput.memo || null,
-        userId: createTaskInput.userId || null,
+        userId: createTaskInput.userId,
       },
     });
   }
