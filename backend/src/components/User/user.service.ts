@@ -9,6 +9,14 @@ import { createUserInput } from './dto/create_user.input';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
+  async findOne(userEmail: string): Promise<UserModel> {
+    return this.prisma.user.findUnique({
+      where: {
+        email: userEmail,
+      },
+    });
+  }
+
   async createUser(createUserInput: createUserInput): Promise<UserModel> {
     return this.prisma.user.create({
       data: {

@@ -1,3 +1,10 @@
+query getUser($email: String!) {
+  user(email: $email) {
+    id
+    email
+  }
+} 
+
 mutation createUser($input: createUserInput!) {
   createUser(createUserInput: $input) { 
     uuid

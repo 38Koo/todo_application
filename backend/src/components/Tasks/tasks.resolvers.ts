@@ -1,4 +1,4 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { TaskModel } from './models/task.model';
 import { TaskService } from './tasks.service';
 import { createTaskInput } from './dto/create_task.input';

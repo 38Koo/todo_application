@@ -4,6 +4,10 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
 import { LabelInput } from '@/components/Layout/base/labelInput';
+import {
+  useCreateTaskMutation,
+  useCreateUserMutation
+} from '@/generated/types';
 
 export type AuthProps = {
   email: string;
@@ -13,6 +17,7 @@ export type AuthProps = {
 const Signin = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm<AuthProps>();
+  const [createUserMutation] = useCreateUserMutation();
 
   // ユーザーが登録ボタンを押したときにdoRegister関数が実行される
   const onSubmit = (data: AuthProps) => {
@@ -20,9 +25,20 @@ const Signin = () => {
 
     // Firebaseで用意されているユーザー登録の関数
     createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then(() => {
+      .then((userCredential) => {
         // ユーザー登録すると自動的にログインされてuserCredential.userでユーザーの情報を取得できる
-        // const user = userCredential.user;
+        const user = userCredential.user;
+        // 登録
+        createUserMutation({
+          variables: {
+            input: {
+              uuid: user.uid,
+              name: '',
+              email: user.email!
+            }
+          }
+        });
+
         // ユーザー登録ができたかどうかをわかりやすくするためのアラート
         alert('登録完了！');
         router.push('/list');
