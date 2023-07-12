@@ -7,11 +7,12 @@ import {
   StackDivider,
   VStack,
   HStack,
-  Text
+  Text,
+  Button
 } from '@chakra-ui/react';
 import { match } from 'ts-pattern';
 
-import { TaskModel } from '@/generated/types';
+import { TaskModel, useDeleteTaskMutation } from '@/generated/types';
 
 type Props = TaskModel;
 
@@ -22,7 +23,16 @@ const StatusIdToNumber = {
   doing: 4
 } as const;
 
-export const TaskCard = ({ statusId, title, status, date, memo }: Props) => {
+export const TaskCard = ({
+  id,
+  statusId,
+  title,
+  status,
+  date,
+  memo
+}: Props) => {
+  const [deleteTaskMutation] = useDeleteTaskMutation();
+
   const statusIdToBgColorName = (statusId: TaskModel['statusId']) => {
     return match(statusId)
       .with(null, undefined, () => 'white')
@@ -36,6 +46,25 @@ export const TaskCard = ({ statusId, title, status, date, memo }: Props) => {
       });
   };
 
+  const onClick = (taskId: number) => {
+    const deleteAnswer = confirm('本当に削除しますか？');
+
+    if (deleteAnswer) {
+      deleteTaskMutation({
+        variables: {
+          taskId: taskId
+        }
+      })
+        .then(() => {
+          alert('削除しました！');
+        })
+        .catch((e) => {
+          alert('エラーが発生しました。');
+          console.error(e);
+        });
+    }
+  };
+
   return (
     <Card
       p={16}
@@ -47,9 +76,14 @@ export const TaskCard = ({ statusId, title, status, date, memo }: Props) => {
       height={400}
     >
       <CardHeader>
-        <Heading size="md" margin="0 5%">
-          {title}
-        </Heading>
+        <HStack>
+          <Heading size="md" margin="0 5%">
+            {title}
+          </Heading>
+          <Button onClick={() => onClick(id)} justifyContent="flex-start">
+            削除
+          </Button>
+        </HStack>
       </CardHeader>
       <StackDivider border="solid" borderColor="gray.200" marginY="8" />
       <CardBody>

@@ -1,14 +1,14 @@
+import { QueryHookOptions } from '@apollo/client';
 import { SimpleGrid } from '@chakra-ui/react';
 
 import { TaskCard } from '@/components/TaskCard/TaskCard';
+import { useAuth } from '@/context/AuthContext';
 import {
   Exact,
   GetUserQuery,
   useGetAllTasksQuery,
   useGetUserQuery
 } from '@/generated/types';
-import { useAuth } from '@/context/AuthContext';
-import { QueryHookOptions } from '@apollo/client';
 
 type a = QueryHookOptions<
   GetUserQuery,
