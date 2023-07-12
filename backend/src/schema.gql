@@ -5,6 +5,7 @@
 type Mutation {
   createTask(createTaskInput: createTaskInput!): TaskModel!
   createUser(createUserInput: createUserInput!): UserModel!
+  deleteTask(taskId: Float!): TaskModel!
 }
 
 type Query {

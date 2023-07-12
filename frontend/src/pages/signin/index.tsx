@@ -4,10 +4,7 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
 import { LabelInput } from '@/components/Layout/base/labelInput';
-import {
-  useCreateTaskMutation,
-  useCreateUserMutation
-} from '@/generated/types';
+import { useCreateUserMutation } from '@/generated/types';
 
 export type AuthProps = {
   email: string;

@@ -5,13 +5,12 @@ import { LabelDate } from '@/components/Layout/base/labelDate';
 import { LabelInput } from '@/components/Layout/base/labelInput';
 import { LabelSelect } from '@/components/Layout/base/labelSelect';
 import { LabelTextarea } from '@/components/Layout/base/labelTextarea';
+import { useAuth } from '@/context/AuthContext';
 import {
   CreateTaskInput,
   useCreateTaskMutation,
   useGetUserQuery
 } from '@/generated/types';
-import { useAuth } from '@/context/AuthContext';
-import { use } from 'react';
 
 const Create = () => {
   const { register, handleSubmit } = useForm<CreateTaskInput>();
