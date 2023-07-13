@@ -1,5 +1,4 @@
 import {
-  Card,
   CardBody,
   CardHeader,
   Heading,
@@ -8,13 +7,16 @@ import {
   VStack,
   HStack,
   Text,
-  Button
+  Button,
+  Card
 } from '@chakra-ui/react';
-import { match } from 'ts-pattern';
 
 import { TaskModel, useDeleteTaskMutation } from '@/generated/types';
+import { match } from 'ts-pattern';
 
-type Props = TaskModel;
+type Props = {
+  onOpen: () => void;
+} & TaskModel;
 
 const StatusIdToNumber = {
   todo: 1,
@@ -25,14 +27,14 @@ const StatusIdToNumber = {
 
 export const TaskCard = ({
   id,
-  statusId,
   title,
   status,
+  statusId,
   date,
-  memo
+  memo,
+  onOpen
 }: Props) => {
   const [deleteTaskMutation] = useDeleteTaskMutation();
-
   const statusIdToBgColorName = (statusId: TaskModel['statusId']) => {
     return match(statusId)
       .with(null, undefined, () => 'white')
@@ -46,7 +48,7 @@ export const TaskCard = ({
       });
   };
 
-  const onClick = (taskId: number) => {
+  const onClickDeleteButton = (taskId: number) => {
     const deleteAnswer = confirm('本当に削除しますか？');
 
     if (deleteAnswer) {
@@ -74,13 +76,17 @@ export const TaskCard = ({
       width={300}
       bgColor={statusIdToBgColorName(statusId)}
       height={400}
+      onClick={onOpen}
     >
       <CardHeader>
         <HStack>
           <Heading size="md" margin="0 5%">
             {title}
           </Heading>
-          <Button onClick={() => onClick(id)} justifyContent="flex-start">
+          <Button
+            onClick={() => onClickDeleteButton(id)}
+            justifyContent="flex-start"
+          >
             削除
           </Button>
         </HStack>
