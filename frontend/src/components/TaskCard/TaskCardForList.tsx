@@ -1,5 +1,4 @@
 import {
-  Card,
   CardBody,
   CardHeader,
   Heading,
@@ -8,13 +7,17 @@ import {
   VStack,
   HStack,
   Text,
-  Button
+  Card
 } from '@chakra-ui/react';
 import { match } from 'ts-pattern';
 
-import { TaskModel, useDeleteTaskMutation } from '@/generated/types';
+import { TaskModel } from '@/generated/types';
 
-type Props = TaskModel;
+type Props = {
+  onOpen: () => void | undefined;
+  onClose: () => void | undefined;
+  isModal?: boolean;
+} & TaskModel;
 
 const StatusIdToNumber = {
   todo: 1,
@@ -23,16 +26,16 @@ const StatusIdToNumber = {
   doing: 4
 } as const;
 
-export const TaskCard = ({
+export const TaskCardForList = ({
   id,
-  statusId,
   title,
   status,
+  statusId,
   date,
-  memo
+  memo,
+  isModal,
+  onOpen
 }: Props) => {
-  const [deleteTaskMutation] = useDeleteTaskMutation();
-
   const statusIdToBgColorName = (statusId: TaskModel['statusId']) => {
     return match(statusId)
       .with(null, undefined, () => 'white')
@@ -46,43 +49,22 @@ export const TaskCard = ({
       });
   };
 
-  const onClick = (taskId: number) => {
-    const deleteAnswer = confirm('本当に削除しますか？');
-
-    if (deleteAnswer) {
-      deleteTaskMutation({
-        variables: {
-          taskId: taskId
-        }
-      })
-        .then(() => {
-          alert('削除しました！');
-        })
-        .catch((e) => {
-          alert('エラーが発生しました。');
-          console.error(e);
-        });
-    }
-  };
-
   return (
     <Card
       p={16}
       borderRadius="10%"
       border="solid"
       borderColor="gray.200"
-      width={300}
+      width={isModal ? 450 : 300}
       bgColor={statusIdToBgColorName(statusId)}
-      height={400}
+      height={isModal ? 600 : 400}
+      onDoubleClick={onOpen}
     >
       <CardHeader>
         <HStack>
           <Heading size="md" margin="0 5%">
             {title}
           </Heading>
-          <Button onClick={() => onClick(id)} justifyContent="flex-start">
-            削除
-          </Button>
         </HStack>
       </CardHeader>
       <StackDivider border="solid" borderColor="gray.200" marginY="8" />

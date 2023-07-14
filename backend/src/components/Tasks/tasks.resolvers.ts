@@ -20,6 +20,14 @@ export class TaskResolver {
   }
 
   @Mutation(() => TaskModel)
+  async updateTask(
+    @Args('taskId') taskId: number,
+    @Args('createTaskInput') createTaskInput: createTaskInput,
+  ) {
+    return this.TaskService.updateTask(taskId, createTaskInput);
+  }
+
+  @Mutation(() => TaskModel)
   async deleteTask(@Args('taskId') taskId: number): Promise<TaskModel> {
     return this.TaskService.deleteTask(taskId);
   }
