@@ -30,6 +30,23 @@ export class TaskService {
     });
   }
 
+  async updateTask(
+    taskId: number,
+    createTaskInput: createTaskInput,
+  ): Promise<TaskModel> {
+    return this.prisma.task.update({
+      data: {
+        title: createTaskInput.title,
+        statusId: createTaskInput.statusId,
+        date: createTaskInput.date,
+        memo: createTaskInput.memo,
+      },
+      where: {
+        id: taskId,
+      },
+    });
+  }
+
   async deleteTask(taskId: number): Promise<TaskModel> {
     return this.prisma.task.delete({
       where: {

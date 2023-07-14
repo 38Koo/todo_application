@@ -25,6 +25,12 @@ mutation createTask($input: createTaskInput!) {
   }
 }
 
+mutation updateTask($taskId: Float!, $input: createTaskInput!) {
+  updateTask(taskId: $taskId, createTaskInput: $input) {
+    id
+  }
+}
+
 mutation deleteTask($taskId: Float!) {
   deleteTask(taskId: $taskId) {
     id

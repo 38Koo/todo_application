@@ -1,6 +1,7 @@
 import { QueryHookOptions } from '@apollo/client';
 import { SimpleGrid } from '@chakra-ui/react';
 
+import { TaskCardLayout } from '@/components/TaskCard/TaskCardLayout';
 import { useAuth } from '@/context/AuthContext';
 import {
   Exact,
@@ -8,7 +9,6 @@ import {
   useGetAllTasksQuery,
   useGetUserQuery
 } from '@/generated/types';
-import { TaskCardLayout } from '@/components/TaskCard/TaskCardLayout';
 
 type a = QueryHookOptions<
   GetUserQuery,
@@ -37,7 +37,7 @@ const List = () => {
       {!!list?.task && list.task.length !== 0 && (
         <SimpleGrid columns={4} spacing="10">
           {list.task.map((item) => (
-            <TaskCardLayout {...item} />
+            <TaskCardLayout key={item.id} {...item} />
           ))}
         </SimpleGrid>
       )}
