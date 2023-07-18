@@ -11,6 +11,7 @@ import {
   useCreateTaskMutation,
   useGetUserQuery
 } from '@/generated/types';
+import { useRouter } from 'next/router';
 
 const Create = () => {
   const { register, handleSubmit } = useForm<CreateTaskInput>();
@@ -18,6 +19,7 @@ const Create = () => {
     onError: (error) => console.error(error)
   });
   const auth = useAuth();
+  const router = useRouter();
 
   const { data: user } = useGetUserQuery({
     variables: {
@@ -30,7 +32,15 @@ const Create = () => {
     data.statusId = Number(data.statusId);
     data.date = data.date.replace(/-/g, '/');
     data.userId = user?.user.id;
-    createTaskMutation({ variables: { input: data } });
+    createTaskMutation({ variables: { input: data } })
+      .then(() => {
+        alert('タスクが作成されました！');
+        router.push('/list');
+      })
+      .catch((e) => {
+        alert('エラーが発生しました。');
+        console.error(e);
+      });
   };
 
   return (

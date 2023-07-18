@@ -88,7 +88,11 @@ export const TaskCardForList = ({
             <Heading as="h3" size="xs" minW="30%" marginY="0">
               Memo
             </Heading>
-            <Text>{memo}</Text>
+            <Text>
+              {!!memo?.length && memo?.length > 140
+                ? memo?.slice(0, 140) + '・・・'
+                : memo}
+            </Text>
           </Stack>
         </Stack>
       </CardBody>

@@ -16,10 +16,10 @@ export default function Home() {
 
   const onSubmit = (toLogin: boolean) => {
     if (toLogin === true) {
-      router.push('login');
+      router.push('/login');
       return;
     }
-    router.push('signin');
+    router.push('/signin');
   };
 
   return (
