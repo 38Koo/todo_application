@@ -1,17 +1,7 @@
-import { Box, Button, Heading, Text } from '@chakra-ui/react';
-import { Inter } from 'next/font/google';
+import { Box, Button, HStack, Heading, Stack, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-import { useGetStatusListQuery } from '@/generated/types';
-
-type Props = {
-  title: string;
-};
-
-const inter = Inter({ subsets: ['latin'] });
-
 export default function Home() {
-  const { data } = useGetStatusListQuery();
   const router = useRouter();
 
   const onSubmit = (toLogin: boolean) => {
@@ -23,7 +13,7 @@ export default function Home() {
   };
 
   return (
-    <Box>
+    <Stack spacing="16">
       <Heading as="h2">
         <Box
           height={200}
@@ -39,24 +29,36 @@ export default function Home() {
           <Box
             border="solid"
             borderRadius="50px"
-            height={190}
+            height={180}
             width={380}
             display="flex"
             alignItems="center"
             justifyContent="center"
             backgroundColor="white"
           >
-            <Text position="relative" my={0}>
-              Let&apos;s manage your Task!
+            <Text position="relative" my={0} fontSize="30px">
+              Let&apos;s Manage Your Task!
             </Text>
           </Box>
         </Box>
       </Heading>
-      <Box alignContent="space-around">
-        <Button onClick={() => onSubmit(false)}>Sign in</Button>
-        <Button onClick={() => onSubmit(true)}>Log in</Button>
-      </Box>
-    </Box>
+      <HStack justifyContent="space-around">
+        <Button
+          background="linear-gradient(135deg, #ccffff, #66ccff)"
+          width="24"
+          onClick={() => onSubmit(false)}
+        >
+          Sign in
+        </Button>
+        <Button
+          background="linear-gradient(135deg, #ffcc99, #cc6633)"
+          width="24"
+          onClick={() => onSubmit(true)}
+        >
+          Log in
+        </Button>
+      </HStack>
+    </Stack>
   );
 }
 
