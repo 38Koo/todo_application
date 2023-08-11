@@ -1,9 +1,8 @@
 import { Modal, ModalBody, ModalContent, ModalOverlay } from '@chakra-ui/react';
 
-import { TaskCardForList } from '../TaskCard/TaskCardForList';
+import { TaskCardForModal } from '../TaskCard/TaskCardForModal';
 
 import { TaskModel } from '@/generated/types';
-import { TaskCardForModal } from '../TaskCard/TaskCardForModal';
 
 type Props = {
   isOpen: boolean;

@@ -1,24 +1,13 @@
-import { QueryHookOptions } from '@apollo/client';
-import { SimpleGrid } from '@chakra-ui/react';
+import { Button, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 
 import { TaskCardLayout } from '@/components/TaskCard/TaskCardLayout';
 import { useAuth } from '@/context/AuthContext';
-import {
-  Exact,
-  GetUserQuery,
-  useGetAllTasksQuery,
-  useGetUserQuery
-} from '@/generated/types';
-
-type a = QueryHookOptions<
-  GetUserQuery,
-  Exact<{
-    email: string;
-  }>
->;
+import { useGetAllTasksQuery, useGetUserQuery } from '@/generated/types';
 
 const List = () => {
   const auth = useAuth();
+  const router = useRouter();
 
   const { data } = useGetUserQuery({
     variables: {
@@ -32,16 +21,28 @@ const List = () => {
     }
   });
 
+  if (!list?.task || list.task.length === 0) {
+    return (
+      <VStack
+        spacing={10}
+        height="60vh"
+        alignContent="center"
+        justifyContent="center"
+      >
+        <Text fontSize={50}>There is No Task.</Text>
+        <Button size="lg" onClick={() => router.push('/create')}>
+          create
+        </Button>
+      </VStack>
+    );
+  }
+
   return (
-    <>
-      {!!list?.task && list.task.length !== 0 && (
-        <SimpleGrid columns={4} spacing="10">
-          {list.task.map((item) => (
-            <TaskCardLayout key={item.id} {...item} />
-          ))}
-        </SimpleGrid>
-      )}
-    </>
+    <SimpleGrid columns={4} spacing="10">
+      {list.task.map((item) => (
+        <TaskCardLayout key={item.id} {...item} />
+      ))}
+    </SimpleGrid>
   );
 };
 
