@@ -1,5 +1,6 @@
 import { Box, Button, HStack, Heading, Stack, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { transform } from 'typescript';
 
 export default function Home() {
   const router = useRouter();
@@ -44,7 +45,13 @@ export default function Home() {
       </Heading>
       <HStack justifyContent="space-around">
         <Button
-          background="linear-gradient(135deg, #ccffff, #66ccff)"
+          background="linear-gradient(135deg, #ff9900, #ff3333)"
+          boxShadow="3px 3px 5px black"
+          _hover={{
+            bg: 'linear-gradient(135deg, #ff9900, #ff3333)',
+            transform: 'translate(3px, 3px)',
+            boxShadow: 'none'
+          }}
           width="24"
           onClick={() => onSubmit(false)}
         >
@@ -52,6 +59,12 @@ export default function Home() {
         </Button>
         <Button
           background="linear-gradient(135deg, #ffcc99, #cc6633)"
+          boxShadow="3px 3px 5px black"
+          _hover={{
+            bg: 'linear-gradient(135deg, #ffcc99, #cc6633)',
+            transform: 'translate(3px, 3px)',
+            boxShadow: 'none'
+          }}
           width="24"
           onClick={() => onSubmit(true)}
         >

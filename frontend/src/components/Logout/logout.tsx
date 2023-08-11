@@ -1,10 +1,6 @@
-import { Text } from '@chakra-ui/react';
-import { User, getAuth, signOut } from 'firebase/auth';
+import { Button } from '@chakra-ui/react';
+import { getAuth, signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
-
-type Props = {
-  user: User;
-};
 
 export const Logout = () => {
   const router = useRouter();
@@ -21,5 +17,5 @@ export const Logout = () => {
       });
   };
 
-  return <Text onClick={onClick}>Log out</Text>;
+  return <Button onClick={onClick}>Log out</Button>;
 };

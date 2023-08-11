@@ -13,6 +13,7 @@ import {
   SelectField,
   Textarea
 } from '@chakra-ui/react';
+import { useForm } from 'react-hook-form';
 import { match } from 'ts-pattern';
 
 import {
@@ -22,7 +23,6 @@ import {
   useGetStatusListQuery,
   useUpdateTaskMutation
 } from '@/generated/types';
-import { useForm } from 'react-hook-form';
 
 type Props = {
   onOpen: () => void | undefined;
