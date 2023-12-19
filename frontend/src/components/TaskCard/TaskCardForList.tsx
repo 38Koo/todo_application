@@ -59,6 +59,7 @@ export const TaskCardForList = ({
       bgColor={statusIdToBgColorName(statusId)}
       height={isModal ? 600 : 400}
       onDoubleClick={onOpen}
+      data-testid="playwrightTest"
     >
       <CardHeader>
         <HStack>

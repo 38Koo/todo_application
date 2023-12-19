@@ -1,6 +1,5 @@
 import { Box, Button, HStack, Heading, Stack, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { transform } from 'typescript';
 
 export default function Home() {
   const router = useRouter();

@@ -49,7 +49,7 @@ const List = () => {
 export async function getStaticProps() {
   return {
     props: {
-      subTitle: 'dashborad'
+      subTitle: 'dashboard'
     }
   };
 }
