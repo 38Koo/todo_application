@@ -27,7 +27,6 @@ const StatusIdToNumber = {
 } as const;
 
 export const TaskCardForList = ({
-  id,
   title,
   status,
   statusId,
@@ -51,7 +50,7 @@ export const TaskCardForList = ({
 
   return (
     <Card
-      p={16}
+      p={8}
       borderRadius="10%"
       border="solid"
       borderColor="gray.200"
@@ -68,9 +67,11 @@ export const TaskCardForList = ({
           </Heading>
         </HStack>
       </CardHeader>
-      <StackDivider border="solid" borderColor="gray.200" marginY="8" />
+      <StackDivider border="solid" borderColor="black.200" />
       <CardBody>
-        <Stack divider={<StackDivider border="solid" borderColor="gray.200" />}>
+        <Stack
+          divider={<StackDivider border="solid" borderColor="black.200" />}
+        >
           <VStack divider={<StackDivider border="solid" />}>
             <HStack width="100%">
               <Heading as="h3" size="xs" minW="30%" margin="0 5%">

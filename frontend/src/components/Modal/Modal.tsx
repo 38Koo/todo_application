@@ -14,9 +14,7 @@ export const ModalCard = ({ isOpen, onOpen, onClose, ...props }: Props) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent
-        containerProps={{ position: 'relative', left: 100, top: -800 }}
-      >
+      <ModalContent>
         <ModalBody>
           <TaskCardForModal onOpen={() => {}} onClose={onClose} {...props} />
         </ModalBody>

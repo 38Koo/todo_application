@@ -102,26 +102,24 @@ export const TaskCardForModal = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card
-        p={16}
+        p={8}
         borderRadius="10%"
         border="solid"
         borderColor="gray.200"
-        width={450}
+        width={{ base: 200, md: 400 }}
         bgColor={statusIdToBgColorName(statusId)}
-        height={600}
+        height={{ base: 300, md: 600 }}
         onDoubleClick={onOpen}
       >
         <CardHeader>
-          <HStack>
-            <Heading size="md" margin="0 5%">
-              <Input defaultValue={title} {...register('title')} />
-            </Heading>
-          </HStack>
+          <Heading size="md" margin="0 5%">
+            <Input defaultValue={title} {...register('title')} />
+          </Heading>
         </CardHeader>
-        <StackDivider border="solid" borderColor="gray.200" marginY="8" />
+        <StackDivider border="solid" borderColor="black.200" marginY="8" />
         <CardBody>
           <Stack
-            divider={<StackDivider border="solid" borderColor="gray.200" />}
+            divider={<StackDivider border="solid" borderColor="black.200" />}
           >
             <VStack divider={<StackDivider border="solid" />}>
               <HStack width="100%">
