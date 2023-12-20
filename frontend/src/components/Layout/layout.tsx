@@ -16,7 +16,7 @@ export const Layout = ({ children, subTitle }: Props) => {
   console.log(auth);
 
   return (
-    <>
+    <Box px={10} pt={5}>
       <Head>
         <title>Todo Application</title>
         <link rel="icon" href="/favicon.ico" />
@@ -35,6 +35,6 @@ export const Layout = ({ children, subTitle }: Props) => {
       <Box display={'flex'} justifyContent={'center'} mt={'40px'}>
         {children}
       </Box>
-    </>
+    </Box>
   );
 };
